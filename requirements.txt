@@ -1,0 +1,5 @@
+langchain_core==0.3.31
+langchain_google_genai==2.0.9
+python-dotenv==1.0.1
+streamlit==1.41.1
+pandas==2.2.3
