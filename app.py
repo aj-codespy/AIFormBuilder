@@ -116,3 +116,5 @@ elif page == "Edit Questions":
                 st.success("Question updated successfully!")
     else:
         st.warning("No form data found. Please generate a form first.")
+
+print(st.session_state.form_data)
