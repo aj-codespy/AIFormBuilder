@@ -26,7 +26,14 @@ The second element is the input type:
 If the question is multiple choice, the subsequent items in this array are the available options.
 If the question is not multiple choice, the array contains only the input type.
 The output must be formatted as a 2D array, and there should be no variable names, explanations, or additional text.
-Ensure the output is a valid Python 2D array that can be directly parsed.'''),
+Ensure the output is a valid Python 2D array that can be directly parsed. Use standard format like this ['How easy is it to navigate the app?', 'Likert Scale', 1, 5],
+['How would you rate the app\'s design and aesthetics?', 'Likert Scale', 1, 5],
+['Do you find the app helpful in achieving your health goals?', 'Likert Scale', 1, 5],
+['Which features do you use most frequently?', 'Multiple Choice', 'Meal planning', 'Calorie tracking', 'Macronutrient tracking', 'Exercise tracking', 'Progress tracking', 'Other (please specify)'],
+['What is your primary health goal using this app?', 'Multiple Choice', 'Weight loss', 'Weight gain', 'Muscle gain', 'Improved fitness', 'Healthier eating habits', 'Other (please specify)'],
+['Are there any features you find confusing or difficult to use? If so, please specify.', 'Textbox'],
+['What are your biggest pain points when using the app?', 'Textbox'],
+['What is your age range?', 'Multiple Choice', '18-24', '25-34', '35-44', '45-54', '55-64', '65+'],'''),
         ("human", "{Question}")
     ])
     
