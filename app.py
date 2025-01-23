@@ -27,40 +27,54 @@ if page == "Generate Form":
         st.session_state.responses = {f"q{i}": None for i in range(len(st.session_state.form_data))}
 
     if st.session_state.form_data:
-        for i, arr in enumerate(st.session_state.form_data):
-            unique_key = f"q{i}"
-            question, input_type = arr[0], arr[1]
-
-            if input_type == 'Slider':
+       for i, arr in enumerate(st.session_state.form_data):
+        unique_key = f"q{i}"
+        question = arr[0]
+        input_type = arr[1]
+    
+        # Handle different input types
+        if input_type == 'Slider':
+            # Ensure there is sufficient data for Slider
+            if len(arr) >= 4:
                 st.session_state.responses[unique_key] = st.slider(
-                    question, 
-                    min_value=arr[2], 
-                    max_value=arr[3], 
-                    key=unique_key
-                )
-            elif input_type == 'Likert Scale' or 'Likert' in input_type:
-                st.session_state.responses[unique_key] = st.radio(
-                    question, 
-                    options=[1, 2, 3, 4, 5], 
-                    key=unique_key
-                )
-            elif input_type == 'Multiple Choice' or 'Choice' in input_type:
-                options = arr[2:]
-                st.session_state.responses[unique_key] = st.multiselect(
-                    question, 
-                    options, 
-                    key=unique_key
-                )
-            elif input_type == 'Textbox':
-                st.session_state.responses[unique_key] = st.text_input(
-                    question, 
+                    question,
+                    min_value=arr[2],
+                    max_value=arr[3],
                     key=unique_key
                 )
             else:
-                st.session_state.responses[unique_key] = st.text_input(
-                    question, 
+                st.warning(f"Insufficient data for Slider in question {i + 1}. Please edit the question.")
+        elif input_type == 'Likert Scale':
+            # Handle Likert Scale specifically
+            st.session_state.responses[unique_key] = st.radio(
+                question,
+                options=[1, 2, 3, 4, 5],
+                key=unique_key
+            )
+        elif input_type == 'Multiple Choice':
+            # Check if options are provided for Multiple Choice
+            if len(arr) > 2:
+                options = arr[2:]
+                st.session_state.responses[unique_key] = st.multiselect(
+                    question,
+                    options,
                     key=unique_key
                 )
+            else:
+                st.warning(f"Insufficient data for Multiple Choice in question {i + 1}. Please edit the question.")
+        elif input_type == 'Textbox':
+            st.session_state.responses[unique_key] = st.text_input(
+                question,
+                key=unique_key
+            )
+        else:
+            # Fallback for unknown input types
+            st.warning(f"Unknown input type '{input_type}' for question {i + 1}. Defaulting to Textbox.")
+            st.session_state.responses[unique_key] = st.text_input(
+                question,
+                key=unique_key
+            )
+
 
         if st.button("Download Responses as CSV"):
             questions = [arr[0] for arr in st.session_state.form_data]
