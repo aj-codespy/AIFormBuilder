@@ -12,7 +12,7 @@ def structConverter(questions):
     llm = ChatGoogleGenerativeAI(
         model='gemini-1.5-flash',
         temperature=0,
-        api_key=os.getenv("API_KEY"),
+        api_key='AIzaSyDk27PsOo83ck8c15ql80R1xXwmK2-NG_s',
         max_tokens=None,
         timeout=30,
         max_retries=2
